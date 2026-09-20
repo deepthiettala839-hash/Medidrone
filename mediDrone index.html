@@ -1,0 +1,72 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MediDroneApp());
+}
+
+class MediDroneApp extends StatelessWidget {
+  const MediDroneApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'MediDrone AI',
+      theme: ThemeData(
+        brightness: Brightness.dark,
+        useMaterial3: true,
+        fontFamily: 'Roboto',
+      ),
+      home: const HomePage(),
+    );
+  }
+}
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int selectedIndex = 0;
+
+  final pages = const [
+    RegistrationPage(),
+    SuppliesPage(),
+    AIPage(),
+    PaymentPage(),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: pages[selectedIndex],
+      bottomNavigationBar: NavigationBar(
+        selectedIndex: selectedIndex,
+        onDestinationSelected: (index) {
+          setState(() => selectedIndex = index);
+        },
+        destinations: const [
+          NavigationDestination(
+            icon: Icon(Icons.home),
+            label: 'Emergency',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.medical_services),
+            label: 'Supplies',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.smart_toy),
+            label: 'AI Care',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.payment),
+            label: 'Payment',
+          ),
+        ],
+      ),
+    );
+  }
+}
